@@ -24,7 +24,7 @@ route::group(['prefix'=>'admin','namespace'=>'Dashboard','middleware'=>'auth:adm
     route::get('/','DashboardController@index')->name('admin.dashboard');
     route::group(['prefix'=>'settings'],function(){
     route::get('/shipping-method/{type}','SettingsController@edit_shipping')->name('setting.shipping.method');
-    route::put('/shipping-method/{id}','SettingController@update_shipping')->name('setting.shipping.update');
+    route::put('shipping-method/{id}','SettingsController@update_shipping')->name('setting.update');
 
     });
 
