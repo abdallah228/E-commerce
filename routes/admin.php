@@ -13,10 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group(//for package mcamara localization
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){
 route::group(['prefix'=>'admin','namespace'=>'Dashboard','middleware'=>'auth:admin'],function(){
 
 
     route::get('/','DashboardController@index')->name('admin.dashboard');
+    route::group(['prefix'=>'settings'],function(){
+    route::get('/shipping-method/{type}','SettingsController@edit_shipping')->name('setting.shipping.method');
+    route::put('/shipping-method/{id}','SettingController@update_shipping')->name('setting.shipping.update');
+
+    });
 
 });
 
@@ -26,6 +36,7 @@ route::group(['prefix'=>'admin','namespace'=>'Dashboard','middleware'=>'guest:ad
     route::post('/login','LoginController@post_login')->name('admin.post.login');
     
     });
+});
    
 
 
