@@ -13,7 +13,7 @@ class Setting extends Model
     protected $translatedAttributes = ['value'];// item that has translation
 
 
-    protected $with = ['translation'];// to return translation in other lang not necessary
+   // protected $with = ['translation'];// to return translation in other lang not necessary
 
 
     //function setSetting in seeder setting
