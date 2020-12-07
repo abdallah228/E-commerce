@@ -7,7 +7,9 @@ use App\Models\SettingTranslation;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\ShippingMethodRequest;
+use Lang;
 class SettingsController extends Controller
+
 {
     //
     public function edit_shipping($type)
@@ -24,28 +26,44 @@ class SettingsController extends Controller
     else 
     $ShippingMethod = Setting::where('key','free_shipping_label')->first();// free will be default
 
-    return view('dashboard.settings.shipping_method.edit',compact('ShippingMethod'));   
+    $store_name = Setting::where('key','store_name')->first();
+    if(app()->getLocale() == 'en')
+    {
+    $store_name->translate('en')->value = Lang::get('admin/index/index.store_name');
+    }
+    else
+    {
+        $store_name->translate('ar')->value = Lang::get('admin/index/index.store_name');
+    }
+    dd($store_name);
+
+    return view('dashboard.settings.shipping_method.edit',compact('ShippingMethod'))->with('store_name',$store_name);   
+    
 }
    
 public function update_shipping(ShippingMethodRequest $request ,$id)
 {
     //return request();
     //validation
+    
     $shipping = Setting::find($id); 
     $shipping->plain_value = $request->plain_value;
     if(app()->getLocale() == 'ar')
     {
         $shipping->translate('ar')->value = $request->value;
         $shipping->save();
-    return redirect()->back()->with(['success'=>'تم التحديث بنجاح']);
+        return redirect()->back()->with(['success'=>'تم التحديث بنجاح']);
     }
-    else{
+    elseif(app()->getLocale() == 'en')
+    {
         $shipping->translate('en')->value = $request->value;
         $shipping->save();
-    return redirect()->back()->with(['success'=>'every thing is ok']);
-         }
+        return redirect()->back()->with(['success'=>'every thing is ok']);
+    }
+    
     
     //update
 }
+   
 
 }
