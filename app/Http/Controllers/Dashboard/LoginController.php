@@ -27,4 +27,10 @@ if(auth()->guard('admin')->attempt(['email'=>$request->input('email'),'password'
             return redirect()->back()->with(['error'=>'هناك خطا بالبيانات']);
         }
     }
+    public function logout()
+    {
+        $guard = auth('admin');
+        $guard->logout();
+        return redirect()->route('admin.login');
+    }
 }

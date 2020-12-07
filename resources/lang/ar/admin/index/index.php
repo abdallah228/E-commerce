@@ -14,5 +14,7 @@ return [
     'ProductType'=>'نوع الطلب',
     'Evaluation'=>'التقييم',
     'LatestEvaluation'=>'اخر التقييمات',
+    'store_name'=>'متجـــــــر راشـــد',
+    
 ];
 
