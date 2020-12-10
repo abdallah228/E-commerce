@@ -26,19 +26,23 @@ class SettingsController extends Controller
     else 
     $ShippingMethod = Setting::where('key','free_shipping_label')->first();// free will be default
 
+
     $store_name = Setting::where('key','store_name')->first();
     if(app()->getLocale() == 'en')
     {
     $store_name->translate('en')->value = Lang::get('admin/index/index.store_name');
+    //$store_name->value = Lang::get('admin/index/index.store_name');
+    $store_name->save();
     }
-    else
+    elseif(app()->getLocale() == 'ar')
     {
         $store_name->translate('ar')->value = Lang::get('admin/index/index.store_name');
+       //$store_name->value = Lang::get('admin/index/index.store_name');
+        $store_name->save();
     }
-    dd($store_name);
-
-    return view('dashboard.settings.shipping_method.edit',compact('ShippingMethod'))->with('store_name',$store_name);   
     
+
+return view('dashboard.settings.shipping_method.edit',compact('ShippingMethod'))->with('store_name',$store_name);   
 }
    
 public function update_shipping(ShippingMethodRequest $request ,$id)
@@ -64,6 +68,5 @@ public function update_shipping(ShippingMethodRequest $request ,$id)
     
     //update
 }
-   
 
 }

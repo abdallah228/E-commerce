@@ -20,15 +20,22 @@ Route::group(//for package mcamara localization
     ], function(){
 route::group(['prefix'=>'admin','namespace'=>'Dashboard','middleware'=>'auth:admin'],function(){
 
-
+    //logout admin
+    route::get('/logout','LoginController@logout')->name('admin.logout');
+    //dashboard
     route::get('/','DashboardController@index')->name('admin.dashboard');
     route::group(['prefix'=>'settings'],function(){
     route::get('/shipping-method/{type}','SettingsController@edit_shipping')->name('setting.shipping.method');
     route::put('shipping-method/{id}','SettingsController@update_shipping')->name('setting.update');
-    //logout admin
-    route::get('/logout','LoginController@logout')->name('admin.logout');
-
     });
+
+        //profile admin
+        route::group(['prefix'=>'profile'],function(){
+            route::get('/edit','ProfileController@edit')->name('profile.edit');
+            route::put('/update','ProfileController@update')->name('profile.update');
+
+        });
+
 
 });
 
