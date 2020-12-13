@@ -14,5 +14,5 @@ return [
     'ProductType'=>'Product Type',
     'Evaluation'=>'Evaluation',
     'LatestEvaluation'=>'Latests Evaluation',
-    'store_name'=>'Rashid Store',
+    'store_name'=> 'Ghena Store',
 ];

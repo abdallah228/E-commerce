@@ -15,5 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 route::get('test',function()
 {
-    return view('layouts.admin');
+   $category =  App\Models\Category::first();
+   $category->makeVisible(['translations']);
+   return $category;
+  // echo(PAGINATION_COUNT);
+
 });
