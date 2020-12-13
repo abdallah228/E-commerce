@@ -14,6 +14,7 @@ Trait NameTrait
         $store_name->translate('en')->value = Lang::get('admin/index/index.store_name');
       //  $store_name->value = Lang::get('admin/index/index.store_name');
         $store_name->save();
+        return $store_name;
         }
         elseif(app()->getLocale() == 'ar')
         {

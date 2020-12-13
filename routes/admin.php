@@ -26,7 +26,7 @@ route::group(['prefix'=>'admin','namespace'=>'Dashboard','middleware'=>'auth:adm
     route::get('/','DashboardController@index')->name('admin.dashboard');
     route::group(['prefix'=>'settings'],function(){
     route::get('/shipping-method/{type}','SettingsController@edit_shipping')->name('setting.shipping.method');
-    route::put('shipping-method/{id}','SettingsController@update_shipping')->name('setting.update');
+    route::put('/shipping-method/{id}','SettingsController@update_shipping')->name('setting.update');
     });
 
         //profile admin
@@ -35,6 +35,18 @@ route::group(['prefix'=>'admin','namespace'=>'Dashboard','middleware'=>'auth:adm
             route::put('/update','ProfileController@update')->name('profile.update');
 
         });
+
+        ///////////////////////////////Categories Route///////////////////////////
+    route::group(['prefix'=>'main-categories'],function(){
+        route::get('/','MainCategoriesController@index')->name('admin.maincategories');
+        route::get('/create','MainCategoriesController@create')->name('admin.maincategories.create');
+        route::post('/store','MainCategoriesController@store')->name('admin.maincategories.store');
+        route::get('/edit/{id}','MainCategoriesController@edit')->name('admin.maincategories.edit');
+        route::post('update/{id}','MainCategoriesController@update')->name('admin.maincategories.update');
+        route::get('/delete/{id}','MainCategoriesController@delete')->name('admin.maincategories.delete');
+
+
+    });
 
 
 });

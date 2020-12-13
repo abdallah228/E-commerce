@@ -54,13 +54,15 @@ public function update_shipping(ShippingMethodRequest $request ,$id)
     $shipping->plain_value = $request->plain_value;
     if(app()->getLocale() == 'ar')
     {
-        $shipping->translate('ar')->value = $request->value;
+       // $shipping->translate('ar')->value = $request->value;
+       $shipping->value = $request->value;
         $shipping->save();
         return redirect()->back()->with(['success'=>'تم التحديث بنجاح']);
     }
     elseif(app()->getLocale() == 'en')
     {
-        $shipping->translate('en')->value = $request->value;
+       // $shipping->translate('en')->value = $request->value;
+         $shipping->value = $request->value;
         $shipping->save();
         return redirect()->back()->with(['success'=>'every thing is ok']);
     }
