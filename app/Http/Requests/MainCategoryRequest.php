@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+
 class MainCategoryRequest extends FormRequest
 {
     /**
@@ -26,7 +27,8 @@ class MainCategoryRequest extends FormRequest
         return [
             //
             'name'=>'required',
-            'slug'=>'required:unique:categories,slug,'.$this->id,
+            'slug'=>'required|unique:categories,slug,'.$this->id,
+            //'photo'=>'required'.$this->id,
         ];
     }
     public function messages()
@@ -35,6 +37,7 @@ class MainCategoryRequest extends FormRequest
             'name.required'=>'من فضلك ادخل الاسم',
             'slug.required'=>'من فضلك ادخل الرابط المطلوب',
             'slug.unique'=>'عفوا هذا الرابط موجود من قبل',
+            //'photo.required'=>'من فضلك قم باختيار صوره',
         ];
     }
 }

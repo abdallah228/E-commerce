@@ -25,7 +25,7 @@ class ShippingMethodRequest extends FormRequest
     {
         return [
             //
-            'id'=>'required',
+            'id'=>'required|exists:settings',
             'value'=>'required',
             'plain_value'=>'nullable|numeric',
         ];

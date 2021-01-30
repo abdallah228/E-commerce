@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\AdminLoginRequest;
 
-class LoginController extends Controller
+class loginController extends Controller
 {
     //
     public function get_login()
@@ -17,9 +17,8 @@ class LoginController extends Controller
     {
         // validation done
         //check that email&& password in admin table
-
     $remember_me = $request->has('remember_me')?true:false;
-if(auth()->guard('admin')->attempt(['email'=>$request->input('email'),'password'=>$request->input('password')],$remember_me))
+    if(auth()->guard('admin')->attempt(['email'=>$request->input('email'),'password'=>$request->input('password')],$remember_me))
         {
             return route('admin.dashboard');
         }

@@ -9,9 +9,9 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="">الرئيسية </a>
+                                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href=""> الاقسام الرئيسية </a>
+                                <li class="breadcrumb-item"><a href="{{route('admin.maincategories')}}"> الاقسام الرئيسية </a>
                                 </li>
                                 <li class="breadcrumb-item active"> تعديل - {{$mainCategory -> name}}
                                 </li>
@@ -54,7 +54,7 @@
                                             <div class="form-group">
                                                 <div class="text-center">
                                                     <img
-                                                        src="{{$mainCategory -> photo}}"
+                                                        src="{{asset('admin/images/categories/'.$mainCategory -> photo)}}"
                                                         class="rounded-circle  height-150" alt="صورة القسم  ">
                                                 </div>
                                             </div>
@@ -105,10 +105,6 @@
                                                         </div>
                                                     </div>
 
-
-                                                   
-
-
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
@@ -119,8 +115,9 @@
                                                                    class="switchery" data-color="success"
                                                                    @if($mainCategory -> is_active == 1)checked @endif/>
                                                             <label for="switcheryColor4"
-                                                                   class="card-title ml-1">الحاله </label>
-
+                                                                   class="card-title ml-1">الحاله({{$mainCategory->getActive()}})
+                                                            </label>
+                                                                   
                                                             @error("is_active")
                                                             <span class="text-danger"> {{$message}}</span>
                                                             @enderror

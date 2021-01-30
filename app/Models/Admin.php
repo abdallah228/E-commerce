@@ -8,7 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Admin extends Authenticatable
 {
     //
+
     protected $table='admins';//ربط الموديل بالجدول ممكن مكتبهاش
     protected $timestamp = true;//ممكن مكتبهاش
     protected $guarded = [];
+    
 }

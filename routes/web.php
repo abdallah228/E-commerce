@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 route::get('test',function()
 {
    $category =  App\Models\Category::first();
-   $category->makeVisible(['translations']);
+  $category->makeVisible(['translations']);
    return $category;
   // echo(PAGINATION_COUNT);
 

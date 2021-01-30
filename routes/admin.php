@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::group(//for package mcamara localization
     [
         'prefix' => LaravelLocalization::setLocale(),
@@ -24,6 +25,7 @@ route::group(['prefix'=>'admin','namespace'=>'Dashboard','middleware'=>'auth:adm
     route::get('/logout','LoginController@logout')->name('admin.logout');
     //dashboard
     route::get('/','DashboardController@index')->name('admin.dashboard');
+    //.................shipping method.........
     route::group(['prefix'=>'settings'],function(){
     route::get('/shipping-method/{type}','SettingsController@edit_shipping')->name('setting.shipping.method');
     route::put('/shipping-method/{id}','SettingsController@update_shipping')->name('setting.update');
@@ -36,7 +38,7 @@ route::group(['prefix'=>'admin','namespace'=>'Dashboard','middleware'=>'auth:adm
 
         });
 
-        ///////////////////////////////Categories Route///////////////////////////
+        ///////////////////////////////mainCategories Route///////////////////////////
     route::group(['prefix'=>'main-categories'],function(){
         route::get('/','MainCategoriesController@index')->name('admin.maincategories');
         route::get('/create','MainCategoriesController@create')->name('admin.maincategories.create');
@@ -45,18 +47,30 @@ route::group(['prefix'=>'admin','namespace'=>'Dashboard','middleware'=>'auth:adm
         route::post('update/{id}','MainCategoriesController@update')->name('admin.maincategories.update');
         route::get('/delete/{id}','MainCategoriesController@delete')->name('admin.maincategories.delete');
 
-
     });
+    
+         ///////////////////////////////mainCategories Route///////////////////////////
+         route::group(['prefix'=>'sub-categories'],function(){
+            route::get('/','SubCategoriesController@index')->name('admin.subcategories');
+            route::get('/create','SubCategoriesController@create')->name('admin.subcategories.create');
+            route::post('/store','SubCategoriesController@store')->name('admin.subcategories.store');
+            route::get('/edit/{id}','SubCategoriesController@edit')->name('admin.subcategories.edit');
+            route::post('update/{id}','SubCategoriesController@update')->name('admin.subcategories.update');
+            route::get('/delete/{id}','SubCategoriesController@delete')->name('admin.subcategories.delete');
+    
+        });
 
 
 });
+///..............login as admin......
 
 route::group(['prefix'=>'admin','namespace'=>'Dashboard','middleware'=>'guest:admin'],function(){
 
     route::get('/login','LoginController@get_login')->name('admin.login');
     route::post('/login','LoginController@post_login')->name('admin.post.login');
-    
     });
+//............endlogin as admin....
+
 });
    
 
