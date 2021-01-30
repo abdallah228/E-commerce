@@ -22,7 +22,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/home';
-    public const ADMIN = '/admin';
+    public const ADMIN = 'ar/admin';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -81,7 +81,7 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/admin.php'));
     }
-/**
+
 
   /**
      * Define the "site" routes for the application.
@@ -96,7 +96,7 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/Site.php'));
     }
-/**
+
 
 
     

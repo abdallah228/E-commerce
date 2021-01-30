@@ -31,7 +31,7 @@ class ProfileController extends Controller
         try{
             $admin = auth('admin')->user()->id;
             $profile = Admin::find($admin);
-            if($request->filled('password'))
+            if($request->filled('password'))//filled refer we have passord request and value
             {
                $profile->password = bcrypt($request->password);
                $profile->save();
