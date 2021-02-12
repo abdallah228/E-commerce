@@ -6,21 +6,14 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 | Admin Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
+| admin operations
 */
-
-
 Route::group(//for package mcamara localization
     [
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
     ], function(){
 route::group(['prefix'=>'admin','namespace'=>'Dashboard','middleware'=>'auth:admin'],function(){
-
     //logout admin
     route::get('/logout','LoginController@logout')->name('admin.logout');
     //dashboard
@@ -30,14 +23,11 @@ route::group(['prefix'=>'admin','namespace'=>'Dashboard','middleware'=>'auth:adm
     route::get('/shipping-method/{type}','SettingsController@edit_shipping')->name('setting.shipping.method');
     route::put('/shipping-method/{id}','SettingsController@update_shipping')->name('setting.update');
     });
-
         //profile admin
         route::group(['prefix'=>'profile'],function(){
             route::get('/edit','ProfileController@edit')->name('profile.edit');
             route::put('/update','ProfileController@update')->name('profile.update');
-
         });
-
         ///////////////////////////////mainCategories Route///////////////////////////
     route::group(['prefix'=>'main-categories'],function(){
         route::get('/','MainCategoriesController@index')->name('admin.maincategories');
@@ -46,9 +36,7 @@ route::group(['prefix'=>'admin','namespace'=>'Dashboard','middleware'=>'auth:adm
         route::get('/edit/{id}','MainCategoriesController@edit')->name('admin.maincategories.edit');
         route::post('update/{id}','MainCategoriesController@update')->name('admin.maincategories.update');
         route::get('/delete/{id}','MainCategoriesController@delete')->name('admin.maincategories.delete');
-
     });
-    
          ///////////////////////////////mainCategories Route///////////////////////////
          route::group(['prefix'=>'sub-categories'],function(){
             route::get('/','SubCategoriesController@index')->name('admin.subcategories');
@@ -59,7 +47,16 @@ route::group(['prefix'=>'admin','namespace'=>'Dashboard','middleware'=>'auth:adm
             route::get('/delete/{id}','SubCategoriesController@delete')->name('admin.subcategories.delete');
     
         });
-
+         ///////////////////////////////brands Route///////////////////////////
+         route::group(['prefix'=>'Brands'],function(){
+            route::get('/','BrandsController@index')->name('admin.brands');
+            route::get('/create','BrandsController@create')->name('admin.brands.create');
+            route::post('/store','BrandsController@store')->name('admin.brands.store');
+            route::get('/edit/{id}','BrandsController@edit')->name('admin.brands.edit');
+            route::post('update/{id}','BrandsController@update')->name('admin.brands.update');
+            route::get('/delete/{id}','BrandsController@delete')->name('admin.brands.delete');
+        });
+#############################end brands#################################
 
 });
 ///..............login as admin......

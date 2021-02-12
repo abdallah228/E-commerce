@@ -25,7 +25,7 @@ class MainCategoriesController extends Controller
         //
         $store_name = $this->name_site();
         
-        $categories = Category::whereNull('parent_id')->get();
+        $categories = Category::parent()->orderBy('id','desc')->paginate(PAGINATION_COUNT);
         return view('dashboard.categories.index',compact('categories','store_name'));
     }
     
@@ -144,7 +144,7 @@ class MainCategoriesController extends Controller
                 else
                 $request->request->add(['is_active'=>1]);
 
-                $category = Category::orderBy('id','DESC')->find($id);
+                $category = Category::find($id);
                 if(!$category)//
                 return redirect()->back()->with(['error'=>'هذا القسم غير موجود']);
                 //$category->name = $category->name;
