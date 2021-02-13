@@ -57,6 +57,16 @@ route::group(['prefix'=>'admin','namespace'=>'Dashboard','middleware'=>'auth:adm
             route::get('/delete/{id}','BrandsController@delete')->name('admin.brands.delete');
         });
 #############################end brands#################################
+##########tags #########
+
+route::group(['prefix'=>'tags'],function(){
+    route::get('/','TagController@index')->name('admin.tags');
+    route::get('/create','TagController@create')->name('admin.tags.create');
+    route::post('/store','TagController@store')->name('admin.tags.store');
+    route::get('/edit/{id}','TagController@edit')->name('admin.tags.edit');
+    route::put('update/{id}','TagController@update')->name('admin.tags.update');
+    route::delete('/delete/{id}','TagController@destroy')->name('admin.tags.delete');
+});#######end tags######
 
 });
 ///..............login as admin......

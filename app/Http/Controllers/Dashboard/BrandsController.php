@@ -94,7 +94,7 @@ class BrandsController extends Controller
         $brand = Brand::find($id);
         if(!$brand)
         {
-            return redirect()->route('brand.index')->with(['error'=>'هذه الماركه غير متوفره']);
+            return redirect()->route('admin.brands')->with(['error'=>'هذه الماركه غير متوفره']);
         }
         return view('dashboard.brands.edit',compact('brand','store_name'));
     }
