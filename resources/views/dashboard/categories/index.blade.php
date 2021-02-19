@@ -48,6 +48,7 @@
                                             <thead class="">
                                             <tr>
                                                 <th>الاسم </th>
+                                                <th>اسم القسم الرئيسي</th>
                                                 <th> الاسم بالرابط</th>
                                                  <th>الحالة</th>
                                                  <th> القسم</th>
@@ -59,13 +60,14 @@
                                                 @foreach($categories as $category)
                                                     <tr>
                                                         <td>{{$category -> name}}</td>
+                                                        <td>{!!$category->_parent->name ??'<span class="text text-danger">هذا قسم رئيسي</span>'!!}</td>
                                                         <td>{{$category->slug}}</td>
                                                         <td>{{$category->getActive()}}</td>
                                                         <td> <img style="width: 150px; height: 100px;" src="{{asset('admin/images/categories/'.$category -> 	photo)}}"></td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
-                                                                <a href="{{route('admin.maincategories.edit',$category -> id)}}"
+                                                                <a href="{{route('admin.maincategories.edit', $category -> id)}}"
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
 
 
