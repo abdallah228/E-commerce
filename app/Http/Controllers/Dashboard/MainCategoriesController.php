@@ -25,7 +25,7 @@ class MainCategoriesController extends Controller
         //
         $store_name = $this->name_site();
         
-        $categories = Category::parent()->orderBy('id','desc')->paginate(PAGINATION_COUNT);
+        $categories = Category::with('_parent')->orderBy('id','desc')->paginate(PAGINATION_COUNT);
         return view('dashboard.categories.index',compact('categories','store_name'));
     }
     
@@ -42,7 +42,8 @@ class MainCategoriesController extends Controller
         //
        
         $store_name = $this->name_site();
-        return view('dashboard.categories.create',compact('store_name'));
+        $categories = Category::select('id','parent_id')->get();
+        return view('dashboard.categories.create',compact('store_name','categories'));
     }
 
     /**
@@ -64,6 +65,20 @@ class MainCategoriesController extends Controller
             else
             $request->request->add(['is_active'=>1]);
 
+
+            #####if user chooice main category it must remove parent-id from request
+            if($request->type == 1)
+            {
+            $request->request->add(['parent_id'=> null ]);
+            }
+            else{
+                $request->all();
+            }
+            //or
+            //$request->except('parent_id');
+            
+            
+
             if($request->has('photo')){
             $photo =  $this->saveImage($request->photo,'admin/images/categories');
             Category::create(
@@ -72,102 +87,77 @@ class MainCategoriesController extends Controller
                 'name'=>$request->name,
                 'slug'=>$request->slug,
                 'is_active'=>$request->is_active,
+                'parent_id'=>$request->parent_id,
                ]
-            );}
-
-            else{
-            Category::create($request->all());}
-            
+            );
+        }
             return redirect()->route('admin.maincategories')->with(['success'=>'تم الحفظ بنجاح']);
             }
+
             catch(\Exception $e)
-    {
+                {
         return redirect()->route('admin.maincategories')->with(['error'=>'حدث خطا ما برجاء المحاوله لاحقا']);
-    }
+                }
 }
 
-/**
- * Remove the specified resource from storage.
- *
- * @param  int  $id
- * @return \Illuminate\Http\Response
- */
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
     {
         //
         $store_name = $this->name_site();
         $mainCategory = Category::find($id);
+        $categories = Category::select('id','parent_id')->get();//sub categories
         if(!$mainCategory)
         return redirect()->route('admin.maincategories')->with(['error'=>'حدث خطا ما']);
        // $mainCategory->makeVisible(['translations']);//if i wanna show translations
        // return $mainCategory;
-        return view('dashboard.categories.edit',compact('mainCategory','store_name'));
+        return view('dashboard.categories.edit',compact('mainCategory','store_name','categories'));
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update( MainCategoryRequest $request, $id)
     {
         //
-        try{
+         //
+         
+         try{
+            if(!$request->has('is_active'))            
+            $request->request->add(['is_active'=>0]);
 
-                //validation 
-                //update
-                if(!$request->has('is_active'))            
-                $request->request->add(['is_active'=>0]);
-    
-                else
-                $request->request->add(['is_active'=>1]);
+            else
+            $request->request->add(['is_active'=>1]);
 
-                $category = Category::find($id);
-                if(!$category)//
-                return redirect()->back()->with(['error'=>'هذا القسم غير موجود']);
-                //$category->name = $category->name;
-                //$category->slug = $category->slug;
-                //$category->save();
-                
-                if($request->has('photo')){
-                $photo =  $this->saveImage($request->photo,'admin/images/categories');
-               $category->update(
-                    [
-                        'photo'=>$photo,
-                        'name'=>$request->name,
-                        'slug'=>$request->slug,
-                        'is_active'=>$request->is_active,
-                    ]);}
-                    else{
-                    $category->update($request->all());}
-                return redirect()->route('admin.maincategories')->with(['success'=>'تم التحديث بنجاح']);
-                }
-                catch(\Exception $e)
-        {
-            return redirect()->route('admin.maincategories')->with(['error'=>'حدث خطا ما برجاء المحاوله لاحقا']);
-        }
+            $category = Category::with('_parent')->find($id);
+            if(!$category)//
+            return redirect()->back()->with(['error'=>'هذا القسم غير موجود']);
+            //$category->name = $category->name;
+            //$category->slug = $category->slug;
+            //$category->save();
+            
+            if($request->has('photo')){
+            $photo =  $this->saveImage($request->photo,'admin/images/categories');
+           $category->update(
+                [
+                    'photo'=>$photo,
+                    'name'=>$request->name,
+                    'slug'=>$request->slug,
+                    'is_active'=>$request->is_active,
+                    'parent_id'=>$request->parent_id,
+                    
+                ]);
+            }
+            return redirect()->route('admin.maincategories')->with(['success'=>'تم التحديث بنجاح']);
+            }
+            catch(\Exception $e)
+    {
+        return redirect()->route('admin.maincategories')->with(['error'=>'حدث خطا ما برجاء المحاوله لاحقا']);
+    }
     }
 
     /**

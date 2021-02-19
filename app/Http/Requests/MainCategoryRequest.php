@@ -28,7 +28,9 @@ class MainCategoryRequest extends FormRequest
             //
             'name'=>'required',
             'slug'=>'required|unique:categories,slug,'.$this->id,
-            //'photo'=>'required'.$this->id,
+            'type'=>'nullable|in:1,2',
+            'parent_id'=>'nullable',
+            'photo'=>'required'.$this->id,
         ];
     }
     public function messages()
@@ -37,7 +39,7 @@ class MainCategoryRequest extends FormRequest
             'name.required'=>'من فضلك ادخل الاسم',
             'slug.required'=>'من فضلك ادخل الرابط المطلوب',
             'slug.unique'=>'عفوا هذا الرابط موجود من قبل',
-            //'photo.required'=>'من فضلك قم باختيار صوره',
+            'photo.required'=>'من فضلك قم باختيار صوره',
         ];
     }
 }

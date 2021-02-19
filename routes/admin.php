@@ -38,15 +38,16 @@ route::group(['prefix'=>'admin','namespace'=>'Dashboard','middleware'=>'auth:adm
         route::get('/delete/{id}','MainCategoriesController@delete')->name('admin.maincategories.delete');
     });
          ///////////////////////////////mainCategories Route///////////////////////////
-         route::group(['prefix'=>'sub-categories'],function(){
-            route::get('/','SubCategoriesController@index')->name('admin.subcategories');
-            route::get('/create','SubCategoriesController@create')->name('admin.subcategories.create');
-            route::post('/store','SubCategoriesController@store')->name('admin.subcategories.store');
-            route::get('/edit/{id}','SubCategoriesController@edit')->name('admin.subcategories.edit');
-            route::post('update/{id}','SubCategoriesController@update')->name('admin.subcategories.update');
-            route::get('/delete/{id}','SubCategoriesController@delete')->name('admin.subcategories.delete');
+        //  route::group(['prefix'=>'sub-categories'],function(){
+        //     route::get('/','SubCategoriesController@index')->name('admin.subcategories');
+        //     route::get('/create','SubCategoriesController@create')->name('admin.subcategories.create');
+        //     route::post('/store','SubCategoriesController@store')->name('admin.subcategories.store');
+        //     route::get('/edit/{id}','SubCategoriesController@edit')->name('admin.subcategories.edit');
+        //     route::post('update/{id}','SubCategoriesController@update')->name('admin.subcategories.update');
+        //     route::get('/delete/{id}','SubCategoriesController@delete')->name('admin.subcategories.delete');
+        //i deleted sub category controller
     
-        });
+        // });
          ///////////////////////////////brands Route///////////////////////////
          route::group(['prefix'=>'Brands'],function(){
             route::get('/','BrandsController@index')->name('admin.brands');
