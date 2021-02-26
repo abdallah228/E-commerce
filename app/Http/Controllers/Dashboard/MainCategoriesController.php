@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Traits\NameSite\NameTrait;//to application name
-use App\Http\Requests\ MainCategoryRequest;
+use App\Http\Requests\MainCategoryRequest;
 use App\Traits\Categories\PhotoTrait;
+use App\Http\Enum\CategoryType;
 
 
 class MainCategoriesController extends Controller
@@ -67,7 +68,7 @@ class MainCategoriesController extends Controller
 
 
             #####if user chooice main category it must remove parent-id from request
-            if($request->type == 1)
+            if($request->type == CategoryType::main_category)
             {
             $request->request->add(['parent_id'=> null ]);
             }
