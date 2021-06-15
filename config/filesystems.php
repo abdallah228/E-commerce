@@ -70,6 +70,14 @@ return [
             'visibility' => 'public',
         ],
         #endbrands
+                ##products
+                'products' => [
+                    'driver' => 'local',
+                    'root' => base_path().'public/admin/images/products/',
+                    'url' => env('APP_URL').'/storage',
+                    'visibility' => 'public',
+                ],
+                #products
 
         's3' => [
             'driver' => 's3',

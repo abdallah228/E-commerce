@@ -16,7 +16,11 @@ class Category extends Model
       'is_active'=>'boolean',
     ];
 
-
+##function scopes####
+public function scopeActive($query)
+{
+  return $query->where('is_active',1);
+}
 
 
 //.............methods....for main categories
@@ -41,6 +45,11 @@ class Category extends Model
     public function _parent()
     {
       return $this->belongsTo(self::class,'parent_id');
-    }
+    }//end subcategory
+    public function products()
+    {
+        return $this->belongsToMany('App\Models\Product','product_category','product_id','category_id');
+
+    }//end relation between products and categories
 
 }

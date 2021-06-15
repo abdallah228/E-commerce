@@ -27,7 +27,18 @@ class Product extends Model
         'end_date',
         'deletes_at',
     ];
+    ##########Scopes####
+    public function scopeSelectProduct($q)
+    {
+        return $q->select('id','slug','price','created_at');
+    }
 
+    #######end scopes####
+    //.............methods....for main categories
+    public function getActive()
+    {
+      return $this->is_active == 0 ?' not active':'active';
+    }//////////
     ###########Relations#############
     public function brand()
     {
@@ -45,6 +56,11 @@ class Product extends Model
         return $this->belongsToMany('App\Models\Tag','product_tag','product_id','tag_id');
 
     }//end relations between products and tags
+
+    public function products_images()
+    {
+        return $this->hasMany('App\Models\ProductImage','product_id');
+    }
 
 
 

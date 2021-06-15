@@ -37,7 +37,7 @@ route::group(['prefix'=>'admin','namespace'=>'Dashboard','middleware'=>'auth:adm
         route::post('update/{id}','MainCategoriesController@update')->name('admin.maincategories.update');
         route::get('/delete/{id}','MainCategoriesController@delete')->name('admin.maincategories.delete');
     });
-         ///////////////////////////////mainCategories Route///////////////////////////
+         ///////////////////////////////subCategories Route///////////////////////////
         //  route::group(['prefix'=>'sub-categories'],function(){
         //     route::get('/','SubCategoriesController@index')->name('admin.subcategories');
         //     route::get('/create','SubCategoriesController@create')->name('admin.subcategories.create');
@@ -69,7 +69,29 @@ route::group(['prefix'=>'tags'],function(){
     route::delete('/delete/{id}','TagController@destroy')->name('admin.tags.delete');
 });#######end tags######
 
+################products##########
+
+route::group(['prefix'=>'products'],function(){
+    route::get('/','ProductController@index')->name('admin.products');
+    route::get('/create','ProductController@create')->name('admin.products.create');
+    route::post('/store','ProductController@store')->name('admin.products.store');
+//price
+    route::get('/price/{id}','ProductController@get_price')->name('admin.products.price');
+    route::post('/price','ProductController@store_price')->name('admin.products.price.store');
+//stock
+route::get('/stock/{id}','ProductController@get_stock')->name('admin.products.stock');
+route::post('/stock','ProductController@store_stock')->name('admin.products.stock.store');
+//images
+
+route::get('/add-images/{id}','ProductController@add_images')->name('admin.products.images');
+route::post('/images','ProductController@store_images')->name('admin.products.images.store');
+route::post('/images-db','ProductController@store_images_db')->name('admin.products.images.store.db');
+   
+
+
+});###########end products########
 });
+
 ///..............login as admin......
 
 route::group(['prefix'=>'admin','namespace'=>'Dashboard','middleware'=>'guest:admin'],function(){
@@ -80,6 +102,7 @@ route::group(['prefix'=>'admin','namespace'=>'Dashboard','middleware'=>'guest:ad
 //............endlogin as admin....
 
 });
+    
    
 
 
