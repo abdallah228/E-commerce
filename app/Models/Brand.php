@@ -15,7 +15,12 @@ class Brand extends Model
     protected $casts = [ // to return true or false not 0 or 1
       'is_active'=>'boolean',
     ];
+//scope function
 
+public function scopeActive($query)
+{
+  return $query->where('is_active',1);
+}
 
 
     ######## active or not for brands #######
